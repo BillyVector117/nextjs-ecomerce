@@ -1,0 +1,94 @@
+import { Button, Card, Grid, Link, List, ListItem, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import { useContext } from "react"
+import Layout from "../components/Layout";
+import { Store } from "../context/Store"
+import NextLink from 'next/link'
+import Image from 'next/image'
+import dynamic from 'next/dynamic'
+function CartPage() {
+    const { state } = useContext(Store)
+    const { cart: { cartItems } } = state;
+    console.log('Your items: ', cartItems)
+    return (
+        <Layout title="Shooping Cart">
+            <Typography component="h1" variant="h1">Shopping cart</Typography>
+            {
+                cartItems.length === 0 ? (
+                    <div>
+                        Cart is empty. <NextLink href="/"><strong style={{ cursor: 'pointer' }}>Go shopping</strong></NextLink>
+                    </div>
+                ) : (
+                    <Grid container style={{display: 'flex', flexWrap: 'wrap'}}>
+                        <Grid item md={8} xs={12}>
+                            <TableContainer>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Image</TableCell>
+                                            <TableCell>Name</TableCell>
+                                            <TableCell align="right">Quantity</TableCell>
+                                            <TableCell align="right">Price</TableCell>
+                                            <TableCell align="right">Action</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {cartItems.map((item) => (
+                                            <TableRow key={item._id} >
+                                                <TableCell>
+                                                    <NextLink href={`/product/${item._id}`} passHref>
+                                                        <Link>
+                                                            <Image src={item.image} alt={item.name} width={50} height={50}></Image>
+                                                        </Link>
+                                                    </NextLink>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <NextLink href={`/product/${item._id}`} passHref>
+                                                        <Link>
+                                                            <Typography>{item.name} </Typography>
+                                                        </Link>
+                                                    </NextLink>
+                                                </TableCell>
+                                                <TableCell align="right">
+                                                    <Select value={item.quantity}>
+                                                        {[...Array(item.countInStock).keys()].map((index) => (
+                                                            <MenuItem key={index + 1} value={index + 1}>{index + 1} </MenuItem>
+                                                        ))}
+                                                    </Select>
+                                                </TableCell>
+                                                <TableCell align="right">
+                                                    ${item.price}
+                                                </TableCell>
+                                                <TableCell align="right">
+                                                    <Button variant="contained" color="error">x</Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Grid>
+                        <Grid item md={3} xs={12} marginLeft={1}>
+                            <Card>
+                                <List>
+                                    <ListItem>
+                                        <Typography variant="h2">
+                                            {/* Reduce the total products and the price */}
+                                            Subtotal ({cartItems.reduce((a, c) =>  a + c.quantity, 0 )}{' '}items) : ${cartItems.reduce((a, c) =>  a + c.quantity * c.price, 0 )}
+                                        </Typography>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Button variant="contained" color="primary">Check Out</Button>
+                                    </ListItem>
+                                </List>
+                            </Card>
+                        </Grid>
+                    </Grid>
+
+                )
+            }
+        </Layout >
+    )
+}
+
+
+export default dynamic(()=> Promise.resolve(CartPage), {ssr: false})

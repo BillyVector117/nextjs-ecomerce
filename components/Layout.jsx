@@ -6,7 +6,7 @@ import { useStyles } from '../utils/styles';
 import { useContext } from 'react';
 import { Store } from '../context/Store';
 function Layout({ title, description, children }) {
-    const { state, dispatch } = useContext(Store)
+    const { state } = useContext(Store)
     console.log(state)
     const { darkMode } = state; // Change palette color depends on its value
     const theme = createTheme({
@@ -44,15 +44,12 @@ function Layout({ title, description, children }) {
                 <meta name="description" content={description ? description : "Umbrella merchandise application"} />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
                 <Header />
 
                 <Container className={classes.main}>
                     {children}
                 </Container>
                 <Footer />
-            </ThemeProvider>
 
 
         </div>

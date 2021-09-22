@@ -8,11 +8,20 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Image from 'next/image'
 import Product from "../../models/Product";
 import dbConnect from "../../utils/database";
+import axios from "axios";
+import { useContext } from "react";
+import { Store } from "../../context/Store";
+import Cookies from "js-cookie";
 
 function singleProduct(props) {
+    
+    const { dispatch } = useContext(Store)
     const classes = useStyles()
-    const {product} = props
+    const { product } = props
     console.log('SSR response: ', product)
+    
+    // console.log('cookies', Cookies.get('cartItems'))
+    
     // Get product ID through Utl-params (query)
     const router = useRouter()
     const { id } = router.query;
@@ -23,6 +32,17 @@ function singleProduct(props) {
             <div>
                 This product no longer exists: {id}
             </div>)
+    }
+    const addToCartHandler = async () => {
+        const { data } = await axios.get(`/api/products/${product._id}`)
+        // Prevent add unavailable item
+        if (data.countInStock <= 0) {
+            window.alert('Product out of stock')
+            return; 
+        }
+        // Here send to payload the product received in SSR props with an additional property (quantity)
+        dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity: 1 } })
+        router.push('/cart')
     }
     return (
         <Layout title={product.name} description={product.description}>
@@ -68,7 +88,7 @@ function singleProduct(props) {
                             </ListItem>
                             <ListItem>
                                 <Grid container>
-                                    <Button fullWidth variant="contained" color="primary">Add to cart <AddShoppingCartIcon /></Button>
+                                    <Button onClick={addToCartHandler} fullWidth variant="contained" color="primary">Add to cart <AddShoppingCartIcon /></Button>
 
                                 </Grid>
                             </ListItem>
@@ -82,18 +102,19 @@ function singleProduct(props) {
 }
 
 export default singleProduct
+
 // Get data from server side before rendering page
 export async function getServerSideProps(context) {
-    const {params} = context;
-    const {id} = params
+    const { params } = context;
+    const { id } = params
     try {
         await dbConnect();
         const product = await Product.findById(id).lean() // GET ALL product
-            product._id = `${product._id}`
-            product.createdAt = `${product.createdAt}`
-            product.updatedAt = `${product.updatedAt}`
-            // console.log(product)
-        
+        product._id = `${product._id}`
+        product.createdAt = `${product.createdAt}`
+        product.updatedAt = `${product.updatedAt}`
+        // console.log(product)
+
         return {
             props: {
                 product

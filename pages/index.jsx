@@ -1,4 +1,5 @@
 import { Grid } from '@material-ui/core'
+import Cookies from 'js-cookie'
 import Layout from '../components/Layout'
 import ImgMediaCard from '../elements/ImgMediaCard'
 import Product from '../models/Product'
@@ -8,11 +9,12 @@ import dbConnect from '../utils/database'
 import { useStyles } from '../utils/styles'
 export default function Home(props) {
   console.log(data)
-  const { products } = props
+  const { products, cartItems } = props
   console.log('SSR props: ', products)
+  console.log('SSR for cookies: ',cartItems )
   const classes = useStyles()
   return (
-    <Layout>
+    <Layout >
       <div className={styles.container}>
         <main style={{ overflow: 'hidden' }} >
           {/*  <h1 className={styles.title}>
@@ -47,7 +49,8 @@ export async function getServerSideProps() {
     })
     return {
       props: {
-        products
+        products,
+        
       }
     }
   } catch (error) {

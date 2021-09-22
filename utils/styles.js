@@ -26,7 +26,7 @@ export const useStyles = makeStyles({
         flexGrow: 1
     },
     main: {
-        minHeight: '80vh'
+        minHeight: '50vh'
     },
     gridMain: {
         flexGrow: 1
