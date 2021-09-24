@@ -35,3 +35,19 @@
  4. Access to Cart Items from Context-API to set a row for each item in cart and show the item information
  5. Make a Card component that shows the Subtotal (Items quantity and total price)
  20. CONVERT CART PAGE TO DYNAMIC CART PAGE (AVOID BREAK STYLES WHEN REFRESHING PAGE)
+  1. Fixing App-Bar and Car page components using next/dynamic for rendering that components only in client side and prevent bugs.
+21. Update Cart items in Cart page (Select tag), Using dispatch action to Add the item depending on the selection value for Select tag.
+22. Implement onClick handler for Deleting an item from cart-Items
+23. Define logic for CART_REMOVE_ITEM in the reducer function in Store.js and use it in 'Delete' button.
+24. Implement functionality for 'Add to cart' button in index page (In all carts) using the same 'CART_ADD_TO_CART' case
+25. Modify and fix the product quantity for that dispatch, otherwise each added to cart will resets to 1 selected product
+26. Modify Add To cart dispatch for Single product page ([id].jsx) with the same function like Index page (For fixing quantity bug)
+27. Adding better logic for add to cart dispatch (User will not exced for out of stock products)
+28. CREATING LOGIN PAGE
+ 1. Create checkoutHandler for Button to redirect /shopping or /login when click it
+ 2. Create Form component (Login section)
+ 3. Create shipping layout page
+29. CREATING SAMPLE USERS
+ 1. Create User model
+ 2. Create sample data (User objects into data.js) to seed into database (api/seed.js)
+ 3. 

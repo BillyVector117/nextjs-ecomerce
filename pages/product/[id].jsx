@@ -14,14 +14,14 @@ import { Store } from "../../context/Store";
 import Cookies from "js-cookie";
 
 function singleProduct(props) {
-    
-    const { dispatch } = useContext(Store)
+
+    const { dispatch, state } = useContext(Store)
     const classes = useStyles()
-    const { product } = props
+    const { product } = props // This props refers to SSR function
     console.log('SSR response: ', product)
-    
+
     // console.log('cookies', Cookies.get('cartItems'))
-    
+
     // Get product ID through Utl-params (query)
     const router = useRouter()
     const { id } = router.query;
@@ -34,14 +34,20 @@ function singleProduct(props) {
             </div>)
     }
     const addToCartHandler = async () => {
-        const { data } = await axios.get(`/api/products/${product._id}`)
+        console.log('Adding to cart')
+       
         // Prevent add unavailable item
-        if (data.countInStock <= 0) {
+        // Verify if item already is at cart, if so, increase +1 else set to 1.
+        const isItemAtCart = state.cart.cartItems.find((item) => { return item._id === product._id })
+        const quantity = isItemAtCart ? isItemAtCart.quantity + 1 : 1
+        const { data } = await axios.get(`/api/products/${product._id}`)
+        // If user exceds limit quantity
+        if (data.countInStock < quantity ) {
             window.alert('Product out of stock')
-            return; 
+            return;
         }
         // Here send to payload the product received in SSR props with an additional property (quantity)
-        dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity: 1 } })
+        dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity: quantity } })
         router.push('/cart')
     }
     return (

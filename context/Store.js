@@ -18,24 +18,32 @@ function reducer(state, action) {
             return { ...state, darkMode: false }
         case 'CART_ADD_ITEM': {
             // GET NEW ITEM
-            const newItem = action.payload;
+            const newItem = action.payload; // newItem refers an received Object Product Model properties
             // ALREADY EXIST NEW ITEM ?
             // Search in state if already existsthis item (Return object if is true)
             const existItem = state.cart.cartItems.find((item) =>
                 item._id == newItem._id
             );
-            console.log('exist items: ', existItem)
-            // SET NEW ITEM
+            console.log('Is this item already in car?: ', existItem)
+            // SET NEW ITEM (named as 'cartItems to send directly through props )
             // Replace the item with the same ID with the new one
-            const cartItems = existItem ? state.cart.cartItems : [...state.cart.cartItems, newItem]
+             // const cartItems = existItem ? state.cart.cartItems : [...state.cart.cartItems, newItem]
 
-            /*  TO ADD NO MATTER PRODUCT IS REPETEAD
-            const cartItems = existItem ? state.cart.cartItems.map((item) => {
+            // TO ADD NO MATTER PRODUCT IS REPETEAD
+            const cartItems = existItem ? state.cart.cartItems.map((item) => 
                 item.name === existItem.name ? newItem : item
-            }) : [...state.cart.cartItems, newItem]; */
+            ) : [...state.cart.cartItems, newItem];
             console.log('cart items: ', cartItems)
             Cookies.set('cartItems', JSON.stringify(cartItems))
             return { ...state, cart: { ...state.cart, cartItems } } // cartItems: cartItems
+        }
+        case 'CART_REMOVE_ITEM': {
+            const itemToDelete = action.payload
+            const cartItems = state.cart.cartItems.filter((item) => {return item._id !== itemToDelete._id})
+            console.log('Cart after deletion: ', cartItems)
+            Cookies.set('cartItems', JSON.stringify(cartItems))
+
+            return {...state, cart: {...state.cart, cartItems}}
         }
         default:
             break;

@@ -1,4 +1,19 @@
+import bcrypt from 'bcrypt'
 export const data = {
+    users: [
+        {
+            name: 'User',
+            email: 'user@live.com',
+            password: bcrypt.hashSync('123', 10),
+            isAdmin: true
+        },
+        {
+            name: 'User 1',
+            email: 'user1@live.com',
+            password: bcrypt.hashSync('123', 10),
+            isAdmin: false
+        }
+    ],
     products: [
         {
             id: 1,
@@ -22,7 +37,7 @@ export const data = {
             rating: 4,
             numReviews: 800,
             countInStock: 44,
-            description: "Finishing: During the design process, our designers modify their drafts many times, trying to inject the creative idea and spirit into the image of the ring. We strictly follow the plans and technology required in each product process. The details are made by hand. We design the ring part as open type, you can adjust the dimension from different finger sizes. After finishing the product process, we check each ring carefully to make sure our product has high quality and better texture." 
+            description: "Finishing: During the design process, our designers modify their drafts many times, trying to inject the creative idea and spirit into the image of the ring. We strictly follow the plans and technology required in each product process. The details are made by hand. We design the ring part as open type, you can adjust the dimension from different finger sizes. After finishing the product process, we check each ring carefully to make sure our product has high quality and better texture."
         },
         {
             id: 3,
