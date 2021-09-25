@@ -2,8 +2,8 @@ import { createTheme, ThemeProvider } from "@material-ui/core"
 import { useContext } from "react";
 import { Store } from "../context/Store";
 
-function Lay({children}) {
-    const { state } = useContext(Store)
+function Lay({ children }) {
+  const { state } = useContext(Store)
   const { darkMode } = state; // Change palette color depends on its value
   const theme = createTheme({
     typography: {
@@ -32,11 +32,11 @@ function Lay({children}) {
       }
     }
   })
-    return (
-        <ThemeProvider theme={theme}>
-            {children}
-        </ThemeProvider>
-    )
+  return (
+    <ThemeProvider theme={theme}>
+      {children}
+    </ThemeProvider>
+  )
 }
 
 export default Lay

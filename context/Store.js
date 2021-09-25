@@ -7,7 +7,8 @@ const initialState = {
     darkMode: Cookies.get('darkMode') === 'ON' ? true : false,
     cart: {
         cartItems: Cookies.get('cartItems') ? JSON.parse(Cookies.get('cartItems')) : []
-    }
+    },
+    userInfo: Cookies.get('userInfo') ? JSON.parse(Cookies.get('userInfo')) : null
 }
 // Define reducer function
 function reducer(state, action) {
@@ -17,34 +18,43 @@ function reducer(state, action) {
         case 'DARK_MODE_OFF':
             return { ...state, darkMode: false }
         case 'CART_ADD_ITEM': {
-            // GET NEW ITEM
+            // GET PAYLOAD ITEM
             const newItem = action.payload; // newItem refers an received Object Product Model properties
             // ALREADY EXIST NEW ITEM ?
             // Search in state if already existsthis item (Return object if is true)
             const existItem = state.cart.cartItems.find((item) =>
                 item._id == newItem._id
             );
-            console.log('Is this item already in car?: ', existItem)
+            // console.log('Is this item already in car?: ', existItem)
             // SET NEW ITEM (named as 'cartItems to send directly through props )
             // Replace the item with the same ID with the new one
-             // const cartItems = existItem ? state.cart.cartItems : [...state.cart.cartItems, newItem]
+            // const cartItems = existItem ? state.cart.cartItems : [...state.cart.cartItems, newItem]
 
             // TO ADD NO MATTER PRODUCT IS REPETEAD
-            const cartItems = existItem ? state.cart.cartItems.map((item) => 
+            const cartItems = existItem ? state.cart.cartItems.map((item) =>
                 item.name === existItem.name ? newItem : item
             ) : [...state.cart.cartItems, newItem];
-            console.log('cart items: ', cartItems)
+            // console.log('cart items: ', cartItems)
             Cookies.set('cartItems', JSON.stringify(cartItems))
             return { ...state, cart: { ...state.cart, cartItems } } // cartItems: cartItems
         }
         case 'CART_REMOVE_ITEM': {
             const itemToDelete = action.payload
-            const cartItems = state.cart.cartItems.filter((item) => {return item._id !== itemToDelete._id})
-            console.log('Cart after deletion: ', cartItems)
+            const cartItems = state.cart.cartItems.filter((item) => { return item._id !== itemToDelete._id })
+            // console.log('Cart after deletion: ', cartItems)
             Cookies.set('cartItems', JSON.stringify(cartItems))
 
-            return {...state, cart: {...state.cart, cartItems}}
+            return { ...state, cart: { ...state.cart, cartItems } }
         }
+        case 'USER_LOGIN': {
+            Cookies.set('userInfo', JSON.stringify(action.payload))
+            return { ...state, userInfo: action.payload }
+        }
+        case 'USER_LOG_OUT': {
+            return { ...state, userInfo: null, cart: { cartItems: [] } }
+        }
+
+
         default:
             break;
     }

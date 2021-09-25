@@ -1,18 +1,14 @@
 import { Grid } from '@material-ui/core'
-import Cookies from 'js-cookie'
 import Layout from '../components/Layout'
 import ImgMediaCard from '../elements/ImgMediaCard'
 import Product from '../models/Product'
 import styles from '../styles/Home.module.css'
-import { data } from '../utils/data'
+// import { data } from '../utils/data'
 import dbConnect from '../utils/database'
-import { useStyles } from '../utils/styles'
 export default function Home(props) {
-  console.log(data)
-  const { products, cartItems } = props
+  // console.log(data)
+  const { products } = props
   console.log('SSR props: ', products)
-  console.log('SSR for cookies: ',cartItems )
-  const classes = useStyles()
   return (
     <Layout >
       <div className={styles.container}>

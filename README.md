@@ -49,5 +49,14 @@
  3. Create shipping layout page
 29. CREATING SAMPLE USERS
  1. Create User model
- 2. Create sample data (User objects into data.js) to seed into database (api/seed.js)
+ 2. Create sample data (User objects into data.js) to seed into database (Using api/seed.js) encrypting password with BcryptJS
+30. BUILD LOGIN API
+ 1. Install JWT to generate token
+ 2. Create new POST api-endpoint (api/users/login.js) to authenticate users login (Returns the user found in database with Token (JWT) as aditional property)
+ 3. Implement logic for that endpoint checking for email & password, then creating a token using 'auth.js' helper from 'utils/auth.js' to send as response
+ 4. Implement submitHandler function on clicking login-button form which makes an api-request to the previous endpoint created ('/api/users/login') sending email and password as parameters to receive the user with a valid TOKEN.
+31. COMPLETE LOGIN PAGE (HANDLING SUBMISSIONS)
+ 1.
+ 2. 
  3. 
+ 4. 

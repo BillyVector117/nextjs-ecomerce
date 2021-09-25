@@ -1,48 +1,98 @@
-import { AppBar, Toolbar, Typography, Switch, Badge } from '@material-ui/core'
+import { AppBar, Toolbar, Typography, Switch, Badge, Button, Menu, MenuItem } from '@material-ui/core'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useStyles } from '../utils/styles'
 import NextLink from 'next/link'
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Store } from '../context/Store';
 import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router';
 /* import CustomizedSwitch from '../elements/CustomizedSwitch'
  */function Header() {
+    const router = useRouter()
     const classes = useStyles();
     const { state, dispatch } = useContext(Store)
-    const { darkMode, cart } = state; // For toggle dark mode button
+    const { darkMode, cart, userInfo } = state; // For toggle dark mode button
     const handlerdarkModeChange = () => {
         dispatch({ type: darkMode ? 'DARK_MODE_OFF' : 'DARK_MODE_ON' })
         const newDarkMode = !darkMode;
         Cookies.set('darkMode', newDarkMode ? 'ON' : 'OFF')
     }
-    console.log('cart length', cart.cartItems)
+    // This two functions allows to Menu tag (MaterialUI) works normally
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const loginHandleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const loginHandleClose = () => {
+        setAnchorEl(null);
+    };
+    // For logging out
+    const logOutClickHandler = () => {
+        setAnchorEl(null);
+        dispatch({ type: 'USER_LOG_OUT' });
+        Cookies.remove('userInfo');
+        Cookies.remove('cartItems');
+        router.push('/')
+    };
+
+    // console.log('cart length', cart.cartItems)
     return (
         <AppBar position="static" className={classes.navbar} >
-            <Toolbar style={{display: 'flex', justifyContent:'space-between'}}>
+            <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
 
-                <Typography className={classes.brand} style={{fontSize:'1.5rem', fontWeight:'bold'}}> 
-                    <NextLink href="/">
-                        <a>Shop App</a>
-                    </NextLink>
-                </Typography>
+                    <Typography className={classes.brand} style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+                        <NextLink href="/">
+                            <a>Shop App</a>
+                        </NextLink>
+                    </Typography>
                 </div>
-                
-                <div style={{display:'flex', justifyContent:'flex-end', alignItems:'center'}}>
 
-                <Switch checked={darkMode} onChange={handlerdarkModeChange}></Switch>
-                {/* <CustomizedSwitch darkMode={darkMode} handlerdarkModeChange={handlerdarkModeChange}></CustomizedSwitch> */}
-                <NextLink href="/cart">
-                    <a> 
-                         <Badge style={{bottom: '20px'}} color="secondary" badgeContent={cart.cartItems.length > 0 ? cart.cartItems.length : 0}></Badge>
-                        <ShoppingCartIcon /> </a>
-                </NextLink>
-                <Typography>
-                    <NextLink href="/login">
-                        <a>Login</a>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+
+                    <Switch checked={darkMode} onChange={handlerdarkModeChange}></Switch>
+                    {/* <CustomizedSwitch darkMode={darkMode} handlerdarkModeChange={handlerdarkModeChange}></CustomizedSwitch> */}
+                    <NextLink href="/cart">
+                        <a>
+                            <Badge style={{ bottom: '20px' }} color="secondary" badgeContent={cart.cartItems.length > 0 ? cart.cartItems.length : 0}></Badge>
+                            <ShoppingCartIcon /> </a>
                     </NextLink>
-                </Typography>
+                    {
+                        userInfo ? (
+                            <>
+                                <Button className={classes.navbarButton} id="basic-button"
+                                    aria-controls="basic-menu"
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    onClick={loginHandleClick}>
+                                    {userInfo.name}
+                                </Button>
+                                <Menu
+                                    id="basic-menu"
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={loginHandleClose}
+                                    MenuListProps={{
+                                        'aria-labelledby': 'basic-button',
+                                    }}
+                                >
+                                    <MenuItem onClick={loginHandleClose}>Profile</MenuItem>
+                                    <MenuItem onClick={loginHandleClose}>My account</MenuItem>
+                                    <MenuItem onClick={logOutClickHandler}>Logout</MenuItem>
+                                </Menu>
+                            </>
+
+                        ) :
+                            (
+                                <Typography>
+                                    <NextLink href="/login">
+                                        <a>Login</a>
+                                    </NextLink>
+                                </Typography>
+                            )
+                    }
                 </div>
             </Toolbar>
         </AppBar>
@@ -50,4 +100,4 @@ import dynamic from 'next/dynamic'
 }
 
 
-export default dynamic(() => Promise.resolve(Header), {ssr: false})
+export default dynamic(() => Promise.resolve(Header), { ssr: false })
