@@ -38,7 +38,7 @@ function Login() {
             alert(error.response.data ? error.response.data.message : error.message)
         }
     }
-    console.log('query', redirect)
+    
     return (
         <Layout title="login ">
             <form onSubmit={submitHandler} className={classes.form}>

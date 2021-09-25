@@ -56,7 +56,7 @@
  3. Implement logic for that endpoint checking for email & password, then creating a token using 'auth.js' helper from 'utils/auth.js' to send as response
  4. Implement submitHandler function on clicking login-button form which makes an api-request to the previous endpoint created ('/api/users/login') sending email and password as parameters to receive the user with a valid TOKEN.
 31. COMPLETE LOGIN PAGE (HANDLING SUBMISSIONS)
- 1.
- 2. 
- 3. 
- 4. 
+ 1. Set Menu-Selection tag (MaterialUI) for login button at App Bar
+ 2. When user log in  redirect him to '/', but if user check out without any account then redirect at /login (with /shipping redirect using router.query) so after enter with his cretendials redirect him to /shipping
+ 3. When exist an User then redirect him to '/' if enter to /login and change login button from App-Bar to Username
+ 4. Make functionality to log Out selection at Menu-selection in App-Bar (Creating a Reducer-case and Removing Cookies and global state)
