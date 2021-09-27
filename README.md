@@ -60,3 +60,16 @@
  2. When user log in  redirect him to '/', but if user check out without any account then redirect at /login (with /shipping redirect using router.query) so after enter with his cretendials redirect him to /shipping
  3. When exist an User then redirect him to '/' if enter to /login and change login button from App-Bar to Username
  4. Make functionality to log Out selection at Menu-selection in App-Bar (Creating a Reducer-case and Removing Cookies and global state)
+32. CREATING REGISTER PAGE
+ 1. Create a register page (component)
+ 2. Create a new endpoint in api/register to allows to generate a new user
+ 3. Implement the same functionality like /login form using Context-API and saving in Cookies the new registered User.
+33. LOGIN AND REGISTER FORM VALIDATIONS
+ 1. In base to TextFields tag from MaterialUI check for validations, so if exist show messages below the field.
+ 2. Install notistack for Pop-up messages, wrap all application in _app.js with SnackbarProvider, then use ir in Login page
+ 3. Change Inputs from login page to Controllers (React-hook-form) to implement validations.
+34. CREATE SHIPPING PAGE
+ 1. 
+ 2.
+ 3.
+ 4. 

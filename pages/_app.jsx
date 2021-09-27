@@ -13,56 +13,60 @@ import '../styles/globals.css'
 import { Store, StoreProvider } from '../context/Store'
 import { createTheme } from '@material-ui/core';
 import Lay from '../components/Lay';
+import { SnackbarProvider } from 'notistack';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }) {
- /*  const { state } = useContext(Store)
-  console.log(state)
-  const { darkMode } = state; // Change palette color depends on its value
-  const theme = createTheme({
-    typography: {
-      h1: {
-        fontSize: '1.6rem',
-        fontWeight: 400,
-        margin: '1rem 0'
-      },
-      h2: {
-        fontSize: '1.4rem',
-        fontWeight: 400,
-        margin: '1rem 0'
-      },
-      body1: {
-        fontWeight: 'normal'
-      },
-
-    },
-    palette: {
-      mode: darkMode ? 'dark' : 'light',
-      primary: {
-        main: '#e00e0e'
-      },
-      secondary: {
-        main: '#fff'
-      }
-    }
-  }) */
+  /*  const { state } = useContext(Store)
+   console.log(state)
+   const { darkMode } = state; // Change palette color depends on its value
+   const theme = createTheme({
+     typography: {
+       h1: {
+         fontSize: '1.6rem',
+         fontWeight: 400,
+         margin: '1rem 0'
+       },
+       h2: {
+         fontSize: '1.4rem',
+         fontWeight: 400,
+         margin: '1rem 0'
+       },
+       body1: {
+         fontWeight: 'normal'
+       },
+ 
+     },
+     palette: {
+       mode: darkMode ? 'dark' : 'light',
+       primary: {
+         main: '#e00e0e'
+       },
+       secondary: {
+         main: '#fff'
+       }
+     }
+   }) */
   return (
     <CacheProvider value={emotionCache}>
-      <StoreProvider >
-        <Head>
-          <title>Umbrella Merchandise</title>
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
-        </Head>
-        <Lay>
+      <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <StoreProvider >
+          <Head>
+            <title>Umbrella Merchandise</title>
+            <meta name="viewport" content="initial-scale=1, width=device-width" />
+          </Head>
+          <Lay>
 
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <Component {...pageProps} />
-        </Lay>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Component {...pageProps} />
+          </Lay>
 
-      </StoreProvider>
+        </StoreProvider>
+
+      </SnackbarProvider>
     </CacheProvider>
 
   )
