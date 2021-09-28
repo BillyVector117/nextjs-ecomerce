@@ -69,7 +69,21 @@
  2. Install notistack for Pop-up messages, wrap all application in _app.js with SnackbarProvider, then use ir in Login page
  3. Change Inputs from login page to Controllers (React-hook-form) to implement validations.
 34. CREATE SHIPPING PAGE
- 1. 
- 2.
- 3.
- 4. 
+ 1. Duplicate login page to shipping page, then add more Inputs refering to User Address including validations with react-hook-form.
+ 2. Add a new property in the Context-API (Store.js) named as "shippingAddress" inside 'car' property.
+ 3. When User clicks on Continue (Shipping page) automatically Shipping Address will save at Cookies , and If refresh page all inputs values will restore from last visit (Loading Cookies)
+ 4. Also when User clicks on Continue Button Shipping-Address data will save at Context-API as "shippingAddress" using a new action.type from Reducer function (case)
+ 5. Set a Stepper (From MaterialUI) above Shipping Address Form to improve UI 
+35. CREATING PAYMENT PAGE
+ 1. Use a class Style for Stepper (CheckOutWizard) defined at Styles.js to get transparent backgroundColor.  
+ 2. Create payment.jsx at pages
+ 3. Build the structure for payment page (Set Radio-Buttons inside a List element)
+ 4. By Clicking to Continue Button will save payment-Method to Context-API and Cookies to load that data when refreshing page
+ 5. Set a "Back" Button to return previous page 
+36. CREATE PLACE ORDER PAGE
+ 1. Load automatically payment Method from Cookies, so set 'paymentMethod' property in Context-API and load data from Cookies (saved from /payment)
+ 2. Create a structure of place order page using Grid tags (MaterialUI)
+ 3. Read data from Context-API 
+ 4. Calculate 'itemsPrice', 'shippingPrice', 'taxPrice', 'totalPrice' from the Context-API properties (Using 'Reducer()' and rounding Int)
+ 5. Set three Card tags (MaterialUI) in the JSX Structure which contains Shipping Address, Payment Method and Order Items (All extracted from Context-API)
+37.  

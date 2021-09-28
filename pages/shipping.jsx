@@ -4,7 +4,6 @@ import { Store } from "../context/Store";
 import { Button, List, ListItem, TextField, Typography } from "@material-ui/core"
 import Layout from "../components/Layout"
 import Cookies from "js-cookie"
-import { useSnackbar } from "notistack" // Pop-up messages
 import { Controller, useForm } from "react-hook-form"
 import { useStyles } from "../utils/styles";
 import CheckOutWizard from "../components/CheckOutWizard";
@@ -14,7 +13,6 @@ function Shipping() {
     const { handleSubmit, control, formState: { errors }, setValue } = useForm();
     const { state, dispatch } = useContext(Store)
     const { userInfo, cart: {shippingAddress} } = state;
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     useEffect(() => {
         if (!userInfo) {
             // push to /login but set a query at Url. 'redirect' refers to router.query 
@@ -25,15 +23,11 @@ function Shipping() {
         setValue('address', shippingAddress.address)
         setValue('city', shippingAddress.city)
         setValue('country', shippingAddress.country)
-
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    /* router.push('/') */
     const classes = useStyles()
 
     const submitHandler = ({ fullName, address, city, postalCode, country }) => {
-        closeSnackbar() // Remove previous Pop-up message
         // SAVING THE RETURNED DATA (OBJECT) INTO GLOBAL STATE (CONTEXT)
         dispatch({ type: 'SAVE_SHIPPING_ADDRESS', payload: { fullName, address, city, postalCode, country } })
         // Save address to Cookies to set placeholder next time
