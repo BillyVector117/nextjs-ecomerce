@@ -86,4 +86,13 @@
  3. Read data from Context-API 
  4. Calculate 'itemsPrice', 'shippingPrice', 'taxPrice', 'totalPrice' from the Context-API properties (Using 'Reducer()' and rounding Int)
  5. Set three Card tags (MaterialUI) in the JSX Structure which contains Shipping Address, Payment Method and Order Items (All extracted from Context-API)
-37.  
+37. IMPLEMENT PLACE ORDER ACTION (BUTTON)
+ 1. Set a loader (MaterialUI) when click button
+ 2. Send a request to '/api/orders' (No created yet) with order properties ( orderItems,
+paymentMethod, shippingAddress, shippingPrice, taxPrice, totalPrice, itemsPrice,)all this properties were calculated in this page and extracted from Context-API
+ 3. Also send in Headers request the USER TOKEN with 'Authorization' property (Saved in Context-API at 'userInfo')
+ 4. Create and use a Dispatch action (CART_CLEAR) for cleaning the cart and remove Cookies (Because at this time the order is complete ) 
+ 5.  The request to '/api/orders' returns an Order Object which contains all order properties and the TOKEN User, use this Order Object to send User another page (Sngle order details page) using the _id for that single Order (returned in request data). The redirected page is like: '/order/:_id' 
+ 6. Implement the '/api/orders' endpoint which returns an Order Object and USER TOKEN
+ 7. Use a Middleware for '/api/orders' (isAuth) to verify is the real User, (use the TOKEN sent when click Button, then verify token with 'jwt.verify()' if sucess set in 'req' Object a new property (req.user) and continue with the next process for API  (next())).
+ 8. '/api/orders' creates a new Order Object (Using Object data sent by user when click button and also using the user._id received in middleware Auth to create this new Order Object ). View Order Model to see how is the returned data
