@@ -6,6 +6,7 @@
   },
   "parser": "babel-eslint",
   "rules": {
+    "@next/next/no-document-import-in-page": "off",
     "no-console": "warn",
     "no-use-before-define": "warn",
     "spaced-comment": "warn"
