@@ -4,7 +4,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export default function FloatingActionButtons({ icon, addToCartHandler, product }) {
     return (
-        <Box onClick={() => {return addToCartHandler(product)}} sx={{ '& > :not(style)': { m: 1 } }}>
+        <Box onClick={() => { return addToCartHandler(product) }} sx={{ '& > :not(style)': { m: 1 } }}>
             <Fab color="primary" aria-label="add">
                 {icon === 'AddShoppingCartIcon' && (
                     <AddShoppingCartIcon />

@@ -11,7 +11,7 @@ function CartPage() {
     const router = useRouter()
     const { state, dispatch } = useContext(Store)
     const { cart: { cartItems } } = state;
-    console.log('Your items: ', cartItems)
+    console.log('Your cart Items: ', cartItems)
 
     const updateCartQuantityHandler = async (item, quantitySelected) => {
         // Verify item stock, (Making an request to that specific item)
@@ -19,18 +19,18 @@ function CartPage() {
         // Prevent add unavailable item
         if (data.countInStock < quantitySelected) {
             window.alert('Product out of stock')
-            return; 
+            return;
         }
         // Here send to payload the product received in SSR props with an additional property (quantity)
         dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity: quantitySelected } })
     }
     const removeItemHandler = (receivedItem) => {
-        dispatch({type: 'CART_REMOVE_ITEM', payload: receivedItem})
+        dispatch({ type: 'CART_REMOVE_ITEM', payload: receivedItem })
     }
     const HandlerCheckOut = () => {
         router.push('/shipping')
     }
-    
+
     return (
         <Layout title="Shooping Cart">
             <Typography component="h1" variant="h1">Shopping cart</Typography>
@@ -78,7 +78,7 @@ function CartPage() {
                                                     </Select>
                                                 </TableCell>
                                                 <TableCell align="right">
-                                                  ${item.price}
+                                                    ${item.price}
                                                 </TableCell>
                                                 <TableCell align="right">
                                                     <Button variant="contained" color="error" onClick={(() => removeItemHandler(item))}>x</Button>
@@ -105,12 +105,9 @@ function CartPage() {
                             </Card>
                         </Grid>
                     </Grid>
-
                 )
             }
         </Layout >
     )
 }
-
-
 export default dynamic(() => Promise.resolve(CartPage), { ssr: false })

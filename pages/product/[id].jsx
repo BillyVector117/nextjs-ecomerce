@@ -11,16 +11,13 @@ import dbConnect from "../../utils/database";
 import axios from "axios";
 import { useContext } from "react";
 import { Store } from "../../context/Store";
-import Cookies from "js-cookie";
 
-function singleProduct(props) {
+function SingleProduct(props) {
 
     const { dispatch, state } = useContext(Store)
     const classes = useStyles()
     const { product } = props // This props refers to SSR function
     console.log('SSR response: ', product)
-
-    // console.log('cookies', Cookies.get('cartItems'))
 
     // Get product ID through Utl-params (query)
     const router = useRouter()
@@ -34,15 +31,14 @@ function singleProduct(props) {
             </div>)
     }
     const addToCartHandler = async () => {
-        console.log('Adding to cart')
-       
+        // console.log('Adding to cart')
         // Prevent add unavailable item
         // Verify if item already is at cart, if so, increase +1 else set to 1.
         const isItemAtCart = state.cart.cartItems.find((item) => { return item._id === product._id })
         const quantity = isItemAtCart ? isItemAtCart.quantity + 1 : 1
         const { data } = await axios.get(`/api/products/${product._id}`)
         // If user exceds limit quantity
-        if (data.countInStock < quantity ) {
+        if (data.countInStock < quantity) {
             window.alert('Product out of stock')
             return;
         }
@@ -95,7 +91,6 @@ function singleProduct(props) {
                             <ListItem>
                                 <Grid container>
                                     <Button onClick={addToCartHandler} fullWidth variant="contained" color="primary">Add to cart <AddShoppingCartIcon /></Button>
-
                                 </Grid>
                             </ListItem>
                         </List>
@@ -107,7 +102,7 @@ function singleProduct(props) {
     )
 }
 
-export default singleProduct
+export default SingleProduct
 
 // Get data from server side before rendering page
 export async function getServerSideProps(context) {
@@ -120,7 +115,6 @@ export async function getServerSideProps(context) {
         product.createdAt = `${product.createdAt}`
         product.updatedAt = `${product.updatedAt}`
         // console.log(product)
-
         return {
             props: {
                 product

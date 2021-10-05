@@ -9,15 +9,13 @@ const handler = nc({ onError })
 handler.use(isAuth)
 // CREATE AN ORDER IN BACKEND
 handler.post(async (req, res) => {
-
+    console.log('Creating order to: ', req.user)
     await dbConnect()
-    // req.user._id is a object created in isAuth() middleware which set in req a new prop (user)
+    // req.user is a object created in isAuth() middleware which set in req a new prop (user)
     const newOrder = new Order({
         ...req.body, user: req.user._id
     });
     const order = await newOrder.save();
     res.status(201).send(order)
-
-
 })
 export default handler;

@@ -5,22 +5,19 @@ import Product from '../models/Product'
 import styles from '../styles/Home.module.css'
 // import { data } from '../utils/data'
 import dbConnect from '../utils/database'
+
 export default function Home(props) {
   // console.log(data)
   const { products } = props
-  console.log('SSR props: ', products)
+  console.log('SSR response: ', products)
   return (
     <Layout >
       <div className={styles.container}>
         <main style={{ overflow: 'hidden' }} >
-          {/*  <h1 className={styles.title}>
-            PRODUCTS
-          </h1> */}
           <Grid container item xs={12} spacing={3}>
             {products.map((product, index) => (
               <Grid key={index} item xs={6} md={4}>
                 <ImgMediaCard product={product} />
-
               </Grid>
             ))}
           </Grid>
@@ -29,7 +26,6 @@ export default function Home(props) {
     </Layout>
   )
 }
-
 
 // Get data from server side before rendering page
 export async function getServerSideProps() {
@@ -46,7 +42,6 @@ export async function getServerSideProps() {
     return {
       props: {
         products,
-        
       }
     }
   } catch (error) {

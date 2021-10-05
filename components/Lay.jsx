@@ -20,7 +20,6 @@ function Lay({ children }) {
       body1: {
         fontWeight: 'normal'
       },
-
     },
     palette: {
       mode: darkMode ? 'dark' : 'light',

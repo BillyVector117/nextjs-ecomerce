@@ -36,6 +36,7 @@ export const useStyles = makeStyles({
         marginBottom: 20
     },
     form: {
+        width: '100%',
         maxWidth: 800,
         margin: '0 auto'
     },
@@ -45,6 +46,12 @@ export const useStyles = makeStyles({
     },
     transparentBackground: {
         backgroundClip: 'transparent'
+    },
+    error: {
+        color: '#f04040'
+    },
+    fullWidth: {
+        width: '100%'
     }
 
 });

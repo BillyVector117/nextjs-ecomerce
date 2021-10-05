@@ -7,6 +7,8 @@ import { useContext, useEffect, useState } from "react"
 import { Store } from "../context/Store"
 import { useRouter } from 'next/router'
 import Cookies from "js-cookie"
+import { useSnackbar } from "notistack";
+
 function Register() {
     const router = useRouter()
     const { redirect } = router.query; // login?redirect=/shipping in case a page redirect here to login
@@ -17,21 +19,23 @@ function Register() {
     const messageEmail = 'Incorrect E-mail, try again'
     const messagePassword = 'Password must have at least 8 characters'
     const messageConfirmPassword = 'Passwords must match'
+    const { enqueueSnackbar } = useSnackbar();
     useEffect(() => {
         if (userInfo) {
             // If is active user then Redirect Home page
             router.push('/')
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' })
     const [errors, setErrors] = useState({ name: false, email: false, password: false, confirmPassword: false })
-    // const [showError, setShowError] = useState(false)
     const classes = useStyles()
 
     const submitHandler = async (event) => {
         event.preventDefault();
         if (formData.password !== formData.confirmPassword) {
+            enqueueSnackbar('password does not match', { variant: 'error' })
             alert('password does not match')
             return
         }
@@ -43,14 +47,14 @@ function Register() {
             Cookies.set('userInfo', JSON.stringify(data))
             router.push(redirect || '/')
         } catch (error) {
-            // console.log('ERROR', error.response)
-            alert(error.response.data ? error.response.data.message : error.message)
+            enqueueSnackbar('Try with another E-mail', { variant: 'error' })
         }
     }
 
     const handleChange = async (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value })
     }
+
     const validateForm = (formData) => {
         // Define errors Object (fill for each new error)
         // Define regular expression for each input
@@ -84,8 +88,6 @@ function Register() {
             countErrors = 0
             return setErrors({ name: false, email: false, password: false, confirmPassword: false })
         }
-        /*  //
-         return errors; */
     }
     const onBlurHandler = async (event) => {
         handleChange(event)
@@ -102,18 +104,17 @@ function Register() {
                     <ListItem>
                         <TextField error={errors.name} helperText={errors.name && messageName} variant="outlined" name="name" autoComplete="on" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} style={{ width: '100%' }} id="name" label="Name" inputProps={{ type: 'name' }} placeholder="Name">
                         </TextField>
-
                     </ListItem>
                     <ListItem>
                         <TextField error={errors.email} helperText={errors.email && messageEmail} variant="outlined" name="email" autoComplete="on" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} style={{ width: '100%' }} id="email" label="Email" inputProps={{ type: 'email' }} placeholder="Email">
                         </TextField>
                     </ListItem>
                     <ListItem>
-                        <TextField error={errors.password} helperText={errors.password && messagePassword} variant="outlined" name="password" autoComplete="on" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} fullWidth id="password" label="password" inputProps={{ type: 'password' }}>
+                        <TextField error={errors.password} helperText={errors.password && messagePassword} variant="outlined" name="password" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} fullWidth id="password" label="password" inputProps={{ type: 'password' }}>
                         </TextField>
                     </ListItem>
                     <ListItem>
-                        <TextField error={errors.confirmPassword} helperText={errors.confirmPassword && messageConfirmPassword} variant="outlined" name="confirmPassword" autoComplete="on" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} fullWidth id="confirmPassword" label="confirmPassword" inputProps={{ type: 'confirmPassword' }}>
+                        <TextField error={errors.confirmPassword} helperText={errors.confirmPassword && messageConfirmPassword} variant="outlined" name="confirmPassword" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} fullWidth id="confirmPassword" label="confirm password" inputProps={{ type: 'password' }}>
                         </TextField>
                     </ListItem>
                     <ListItem>

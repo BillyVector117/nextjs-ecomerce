@@ -7,26 +7,30 @@ import { Store } from '../context/Store';
 import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router';
-/* import CustomizedSwitch from '../elements/CustomizedSwitch'
- */function Header() {
+function Header() {
     const router = useRouter()
     const classes = useStyles();
     const { state, dispatch } = useContext(Store)
     const { darkMode, cart, userInfo } = state; // For toggle dark mode button
+
     const handlerdarkModeChange = () => {
         dispatch({ type: darkMode ? 'DARK_MODE_OFF' : 'DARK_MODE_ON' })
         const newDarkMode = !darkMode;
         Cookies.set('darkMode', newDarkMode ? 'ON' : 'OFF')
     }
-    // This two functions allows to Menu tag (MaterialUI) works normally
+    // This two functions allows to work normally Menu tag (MaterialUI) 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
     const loginHandleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const loginHandleClose = () => {
+
+    const loginHandleClose = (event, redirect) => {
         setAnchorEl(null);
+        if (redirect) {
+            router.push(redirect)
+        }
     };
     // For logging out
     const logOutClickHandler = () => {
@@ -42,16 +46,13 @@ import { useRouter } from 'next/router';
         <AppBar position="static" className={classes.navbar} >
             <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
-
                     <Typography className={classes.brand} style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
                         <NextLink href="/">
                             <a>Shop App</a>
                         </NextLink>
                     </Typography>
                 </div>
-
                 <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-
                     <Switch checked={darkMode} onChange={handlerdarkModeChange}></Switch>
                     {/* <CustomizedSwitch darkMode={darkMode} handlerdarkModeChange={handlerdarkModeChange}></CustomizedSwitch> */}
                     <NextLink href="/cart">
@@ -78,12 +79,11 @@ import { useRouter } from 'next/router';
                                         'aria-labelledby': 'basic-button',
                                     }}
                                 >
-                                    <MenuItem onClick={loginHandleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={loginHandleClose}>My account</MenuItem>
+                                    <MenuItem onClick={(event) => { return loginHandleClose(event, '/profile') }}>Profile</MenuItem>
+                                    <MenuItem onClick={(event) => { return loginHandleClose(event, '/order-history') }}>Order History</MenuItem>
                                     <MenuItem onClick={logOutClickHandler}>Logout</MenuItem>
                                 </Menu>
                             </>
-
                         ) :
                             (
                                 <Typography>
@@ -98,6 +98,5 @@ import { useRouter } from 'next/router';
         </AppBar>
     )
 }
-
 
 export default dynamic(() => Promise.resolve(Header), { ssr: false })

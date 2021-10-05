@@ -84,8 +84,8 @@ function PlaceOder() {
     }
     return (
         <Layout title="Place Order">
+            <br />
             <CheckOutWizard activeStep={3}>
-
             </CheckOutWizard>
             <Typography component="h1" variant="h1">Place Order</Typography>
 
@@ -214,7 +214,6 @@ function PlaceOder() {
                                     </Grid>
                                 </Grid>
                             </ListItem>
-
                             <ListItem>
                                 <Button
                                     onClick={placeOrderHandler}
@@ -224,13 +223,11 @@ function PlaceOder() {
                                 >PLACE MY ORDER
                                 </Button>
                             </ListItem>
-
                             {loading && <CircularProgress />}
                         </List>
                     </Card>
                 </Grid>
             </Grid>
-
         </Layout >
     )
 }

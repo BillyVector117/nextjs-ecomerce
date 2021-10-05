@@ -7,12 +7,14 @@ import Cookies from "js-cookie"
 import { Controller, useForm } from "react-hook-form"
 import { useStyles } from "../utils/styles";
 import CheckOutWizard from "../components/CheckOutWizard";
+
 function Shipping() {
-    // Context-API Access
     const router = useRouter()
+    const classes = useStyles()
     const { handleSubmit, control, formState: { errors }, setValue } = useForm();
     const { state, dispatch } = useContext(Store)
-    const { userInfo, cart: {shippingAddress} } = state;
+    const { userInfo, cart: { shippingAddress } } = state;
+
     useEffect(() => {
         if (!userInfo) {
             // push to /login but set a query at Url. 'redirect' refers to router.query 
@@ -25,7 +27,6 @@ function Shipping() {
         setValue('country', shippingAddress.country)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    const classes = useStyles()
 
     const submitHandler = ({ fullName, address, city, postalCode, country }) => {
         // SAVING THE RETURNED DATA (OBJECT) INTO GLOBAL STATE (CONTEXT)

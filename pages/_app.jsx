@@ -14,6 +14,7 @@ import { Store, StoreProvider } from '../context/Store'
 import { createTheme } from '@material-ui/core';
 import Lay from '../components/Lay';
 import { SnackbarProvider } from 'notistack';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -53,16 +54,18 @@ function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }) 
     <CacheProvider value={emotionCache}>
       <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <StoreProvider >
-          <Head>
-            <title>Umbrella Merchandise</title>
-            <meta name="viewport" content="initial-scale=1, width=device-width" />
-          </Head>
-          <Lay>
+          <PayPalScriptProvider deferLoading={true}>
+            <Head>
+              <title>Umbrella Merchandise</title>
+              <meta name="viewport" content="initial-scale=1, width=device-width" />
+            </Head>
+            <Lay>
 
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <Component {...pageProps} />
-          </Lay>
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+              <Component {...pageProps} />
+            </Lay>
+          </PayPalScriptProvider>
 
         </StoreProvider>
 

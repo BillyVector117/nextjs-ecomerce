@@ -12,6 +12,7 @@ import NextLink from 'next/link'
 import { Store } from '../context/Store';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -21,6 +22,7 @@ const useStyles = makeStyles({
     justifyContent: 'space-between'
   }
 });
+
 export default function ImgMediaCard({ product }) {
   const { dispatch, state } = useContext(Store)
   const router = useRouter()
@@ -61,7 +63,6 @@ export default function ImgMediaCard({ product }) {
             <Typography variant="body2" color="textSecondary" component="p">
               {description.slice(0, 60) + '...'}
             </Typography>
-
           </CardContent>
         </CardActionArea>
       </NextLink>
@@ -69,7 +70,7 @@ export default function ImgMediaCard({ product }) {
         <Button size="small" color="primary">
           Share
         </Button>
-        <Button size="" color="primary">
+        <Button color="primary">
           $ {<strong> {price}</strong>}
         </Button>
         <FloatingCardActionButtons product={product} addToCartHandler={addToCartHandler} icon={'AddShoppingCartIcon'} />

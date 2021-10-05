@@ -9,7 +9,9 @@ import { useRouter } from 'next/router'
 import Cookies from "js-cookie"
 import { useSnackbar } from "notistack" // Pop-up messages
 import { Controller, useForm } from "react-hook-form"
+
 function Login() {
+    const classes = useStyles()
     const { handleSubmit, control, formState: { errors } } = useForm();
     const router = useRouter()
     const { redirect } = router.query; // login?redirect=/shipping in case a page redirect here to login
@@ -22,9 +24,8 @@ function Login() {
             // If is active user then Redirect Home page
             router.push('/')
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    const classes = useStyles()
 
     const submitHandler = async ({ email, password }) => {
         closeSnackbar() // Remove previous Pop-up message
@@ -84,13 +85,13 @@ function Login() {
                             }}
                             render={({ field }) => (
                                 <TextField variant="outlined"
-                                 autoComplete="on" 
-                                 {...field} 
-                                 fullWidth 
-                                 id="password" 
-                                 label="password" 
-                                 inputProps={{ type: 'password' }} 
-                                 error={Boolean(errors.password)} helperText={errors.password ? errors.password.type === 'minLength' ? 'E-mail requires at least 8 characters, 1 uppercase character, 1 lower case character and 1 special character' : 'Password is required' : ''}>
+                                    autoComplete="on"
+                                    {...field}
+                                    fullWidth
+                                    id="password"
+                                    label="password"
+                                    inputProps={{ type: 'password' }}
+                                    error={Boolean(errors.password)} helperText={errors.password ? errors.password.type === 'minLength' ? 'E-mail requires at least 8 characters, 1 uppercase character, 1 lower case character and 1 special character' : 'Password is required' : ''}>
                                 </TextField>
                             )}
                         ></Controller>
