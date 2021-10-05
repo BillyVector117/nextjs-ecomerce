@@ -9,7 +9,7 @@ import dbConnect from '../utils/database'
 export default function Home(props) {
   // console.log(data)
   const { products } = props
-  console.log('SSR response: ', products)
+  // console.log('SSR response: ', products)
   return (
     <Layout >
       <div className={styles.container}>
@@ -45,6 +45,6 @@ export async function getServerSideProps() {
       }
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }

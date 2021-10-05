@@ -10,14 +10,14 @@ handler.post(async (req, res) => {
     await dbConnect()
     const user = await User.findOne({ email: req.body.email }); // Return one Object
     // Check is user exists and check for correct password
-    console.log('User found: ', user)
+    // console.log('User found: ', user)
     if (user) {
         if (bcrypt.compareSync(req.body.password, user.password)) {
             const token = signToken(user) // Return the token
             // Excluding password before sending a response
             // eslint-disable-next-line no-unused-vars
             const { password, ...userProperties } = user._doc;
-            console.log('token', token)
+            // console.log('token', token)
             res.send({ token, ...userProperties })
         } else {
             res.status(401).send({ message: 'Invalid Credentials' })

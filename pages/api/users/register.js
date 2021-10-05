@@ -14,7 +14,7 @@ handler.post(async (req, res) => {
     const newUser = await new User({ name, email, password, isAdmin: false })
     const user = await newUser.save()
     const token = signToken(user) // Return the token
-    console.log('User created: ', user, token)
+    // console.log('User created: ', user, token)
     res.send({
         token,
         _id: user._id,

@@ -73,7 +73,7 @@ function PlaceOder() {
             dispatch({ type: 'CART_CLEAR' })
             Cookies.remove('cartItems')
             setLoading(false)
-            console.log(data)
+            // console.log(data)
             // Push user to Single order details page (REQUIRES DATA._ID RESPONSE)
             router.push(`/order/${data._id}`)
         } catch (error) {

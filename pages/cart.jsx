@@ -11,7 +11,7 @@ function CartPage() {
     const router = useRouter()
     const { state, dispatch } = useContext(Store)
     const { cart: { cartItems } } = state;
-    console.log('Your cart Items: ', cartItems)
+    // console.log('Your cart Items: ', cartItems)
 
     const updateCartQuantityHandler = async (item, quantitySelected) => {
         // Verify item stock, (Making an request to that specific item)

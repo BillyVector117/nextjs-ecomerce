@@ -27,10 +27,10 @@ export default function ImgMediaCard({ product }) {
   const { dispatch, state } = useContext(Store)
   const router = useRouter()
   const classes = useStyles();
-  const { _id, name, category, image, price, brand, rating, numReviews, countInStock, description } = product;
-
+  const { _id, name, image, price, description } = product;
+  // Next update: const { _id, name, category, image, price, brand, rating, numReviews, countInStock, description } = product;
   const addToCartHandler = async (item) => {
-    console.log('Adding to cart')
+    // console.log('Adding to cart')
     // Prevent add unavailable item
     // Verify if item already is at cart, if so, increase +1 else set to 1.
     const isItemAtCart = state.cart.cartItems.find((product) => { return product._id === item._id })

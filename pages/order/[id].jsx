@@ -68,7 +68,7 @@ function Order({ params }) {
                 dispatch({ type: 'FETCH_FAIL', payload: error })
             }
         }
-        console.log('Order received: ', order)
+        // console.log('Order received: ', order)
         if (!order._id || successPay || (order._id && order._id !== orderId)) {
             // order._id and orderId should be the same because we send the Url-params ID to the request-API 
             // So, the request search and returns the document with that ID
@@ -129,7 +129,7 @@ function Order({ params }) {
     }
     // THIS FUNCTION APPENDS AN ERROR WHEN OCURRS IN PAYPAL PAYMENT
     function onError(err) {
-        enqueueSnackbar('Paid not completed!', { variant: 'error' })
+        enqueueSnackbar(`Paid not completed! ${err}`, { variant: 'error' })
     }
     return (
         <Layout title={`Order ${orderId}`} >

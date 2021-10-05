@@ -17,7 +17,7 @@ function SingleProduct(props) {
     const { dispatch, state } = useContext(Store)
     const classes = useStyles()
     const { product } = props // This props refers to SSR function
-    console.log('SSR response: ', product)
+    // console.log('SSR response: ', product)
 
     // Get product ID through Utl-params (query)
     const router = useRouter()
@@ -121,6 +121,6 @@ export async function getServerSideProps(context) {
             }
         }
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 }
