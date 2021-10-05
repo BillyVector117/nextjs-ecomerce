@@ -123,7 +123,7 @@ function Order({ params }) {
                 enqueueSnackbar('Paid successfully!', { variant: 'success' })
             } catch (error) {
                 dispatch({ type: 'PAY_FAIL', payload: error })
-                enqueueSnackbar('Paid not complete!', { variant: 'error' })
+                enqueueSnackbar(`Paid not completed! ${error}`, { variant: 'error' })
             }
         })
     }

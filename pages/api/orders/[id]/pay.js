@@ -21,10 +21,8 @@ handler.put(async (req, res) => {
             }
         const paidOrder = await order.save()
         res.send({ message: 'Order paid', order: paidOrder })
-
     } else {
         res.status(404).send({ message: 'Order not found' })
     }
-    res.send(order)
 })
 export default handler;
