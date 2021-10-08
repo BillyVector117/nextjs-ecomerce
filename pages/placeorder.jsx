@@ -51,6 +51,7 @@ function PlaceOder() {
     const { closeSnackbar, enqueueSnackbar } = useSnackbar()
     // State for showing loading message
     const [loading, setLoading] = useState(false);
+    
     const placeOrderHandler = async () => {
         closeSnackbar()
         try {
@@ -88,7 +89,6 @@ function PlaceOder() {
             <CheckOutWizard activeStep={3}>
             </CheckOutWizard>
             <Typography component="h1" variant="h1">Place Order</Typography>
-
             <Grid container style={{ display: 'flex', flexWrap: 'wrap' }}>
                 <Grid item md={8} xs={12}>
                     <Card>
