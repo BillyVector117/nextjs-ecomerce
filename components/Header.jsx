@@ -7,7 +7,7 @@ import { Store } from '../context/Store';
 import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router';
-function Header() {
+function Header({ title }) {
     const router = useRouter()
     const classes = useStyles();
     const { state, dispatch } = useContext(Store)
@@ -40,7 +40,7 @@ function Header() {
         Cookies.remove('cartItems');
         router.push('/')
     };
-
+    // console.log(userInfo)
     // console.log('cart length', cart.cartItems)
     return (
         <AppBar position="static" className={classes.navbar} >
@@ -48,7 +48,7 @@ function Header() {
                 <div>
                     <Typography className={classes.brand} style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
                         <NextLink href="/">
-                            <a>Shop App</a>
+                            <a>{title ? title : 'Shop App'}</a>
                         </NextLink>
                     </Typography>
                 </div>
@@ -79,6 +79,12 @@ function Header() {
                                         'aria-labelledby': 'basic-button',
                                     }}
                                 >
+                                    {
+                                        userInfo.isAdmin ?
+                                            (<MenuItem onClick={(event) => { return loginHandleClose(event, '/admin') }}>Admin page</MenuItem>)
+                                            :
+                                            (<MenuItem onClick={(event) => { return loginHandleClose(event, '/profile') }}>OC</MenuItem>)
+                                    }
                                     <MenuItem onClick={(event) => { return loginHandleClose(event, '/profile') }}>Profile</MenuItem>
                                     <MenuItem onClick={(event) => { return loginHandleClose(event, '/order-history') }}>Order History</MenuItem>
                                     <MenuItem onClick={logOutClickHandler}>Logout</MenuItem>

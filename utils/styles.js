@@ -52,6 +52,13 @@ export const useStyles = makeStyles({
     },
     fullWidth: {
         width: '100%'
+    },
+    sidebar: {
+        flex: '0.3',
+        height: 'calc(100vh - 50px)',
+        backgroundColor: 'rgb(251, 251, 255)',
+        position: 'sticky',
+        top: '63px',
     }
 
 });
