@@ -18,7 +18,6 @@ function LayoutAdmin({ title, description, children, currentSection }) {
 
                 <Sidebar currentSection={currentSection} />
                 <Container>
-
                     {children}
                 </Container>
             </div>

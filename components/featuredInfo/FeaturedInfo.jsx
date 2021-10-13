@@ -4,6 +4,7 @@ import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 export default function FeaturedInfo() {
   return (
     <div className="featured">
+      <br />
       <div className="featuredItem">
         <span className="featuredTitle">Revanue</span>
         <div className="featuredMoneyContainer">

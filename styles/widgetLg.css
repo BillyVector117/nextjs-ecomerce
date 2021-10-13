@@ -32,9 +32,8 @@
   object-fit: cover;
   margin-right: 10px;
 }
-
 .widgetLgDate,.widgetLgAmount{
-  font-weight: 300;
+  font-weight: 200;
 }
 
 .widgetLgButton {
@@ -56,4 +55,13 @@
     background-color: #ebf1fe;
     color: #2a7ade;
 
+}
+.totalAndDate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color:#3bb077
+}
+.viewOrderButton {
+  color: #2a7ade;
 }

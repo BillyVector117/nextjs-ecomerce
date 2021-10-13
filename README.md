@@ -142,4 +142,22 @@ so make a PUT (UPDATE) request to `/api/orders/${order._id}/pay` (remember order
  3. Make a request to '/api/users/profile' sending data-form and user TOKEN
  4. Create a new file at '/api/users/profile as PUT endpoint
  5. Authenticate User with isAuth middleware, then get the ._id from req.user and update that document in database with all data-form fields (return the object with a new token)
-
+41. SYS ADMIN PAGE
+ 1. Create a new select from Dropdown (App Bar) for redirect to '/admin' (Only display if 'isAdmin' property User is True)
+ 2. Create the Layout for Admin pages (Same App Bar but changing name, assing a Dashboard (Left-Side) and the same Footer).
+ 3. Add three containers, one for 'User Analytics per Month' (using recharts library), other one for 'New Join Members' and finally the last one for 'Latest New Orders'.
+ 4. Make a request to Database to get the latest New Users and Orders (inside getServerSideProps()) for filling 'New Join Members' and 'Latest New Orders' containers
+ 42. MAKE GET STATS ENDPOINT
+  1. Create a file at 'api/users/getStats'
+  2. Use 'isAuth' middleware to check valid Token
+  3. From User collection, use aggregate method to make a different query, it allows to extract in an array the Months (as '_id') and Total Users of that month (as 'Total') Response Ex: [{"id": 5, "total": 3}], this returns the Total New Users.
+ 43. MAKE CHART
+  1.  Inside useEffect() Hook call getStats(), it allows to get the number of registered Users per month
+  2.  In useEffect() Hook (Before calling getStats()) define an Array with all months, then inside getStats() make a GET request to 'api/users/getStats' which returns an array which 'id' refers to Month and 'total' refers to Total registered users in that month (Response Ex: [{"id": 5, "total": 3}])
+  3. After fetching data in getStats(), sort the array min to max (saved at 'res' var), then make a new Array which contains objects for each month and its Total new Users like: [ 0: {name: 'Aug', Total Users: 5}, 1: {...}], month Name exists for looping MONTHS Array, so to get the month Name just refer each _id property to that Array, finally mount to 'userStats' state the resulted Array.
+  4. Pass to chart component 'userStats' info. and 'dataKey' property must to be equal to 'Total Users' property from userStats (sort-response).
+44. MAKE A REDIRECTION BUTTON to '/admin/allUsers' and '/admin/allOrders' in Left-Side (Dashboard)
+  1. Get All Users and Orders inside 'getServerSideProps()' then, pass that data (through props) to component and looping each Array render the data using DataGrids components (MaterialUI) 
+  2. Set Delete Button in last column for Orders and Users DatGrid which make a DELETE request to `/api/users/delete/${id}` for remove User / Order from database.
+45. UPDATE 'isAdmin' property for Users
+  1. Add a 'Up to Admin Button' next to 'Delete Button', which fires a function that makes a PUT request to '/admin/users/update/${id}' to change 'isAdmin' prop to true in database

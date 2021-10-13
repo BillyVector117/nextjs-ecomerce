@@ -17,8 +17,9 @@ import { useContext, useEffect } from "react";
 import { Store } from "../../context/Store";
 import { useStyles } from "../../utils/styles";
 import NextLink from 'next/link'
+import dynamic from "next/dynamic";
 
-export default function Sidebar({ currentSection }) {
+function Sidebar({ currentSection }) {
   const router = useRouter()
   const classes = useStyles();
   // Context-API Access
@@ -126,3 +127,5 @@ export default function Sidebar({ currentSection }) {
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(Sidebar), { ssr: false })

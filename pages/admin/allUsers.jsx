@@ -2,6 +2,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useContext, useEffect, useState } from "react";
 import LayoutAdmin from "../../components/LayoutAdmin";
 import { DeleteOutline } from "@mui/icons-material";
+import IconButton from '@mui/material/IconButton';
+
 import dbConnect from "../../utils/database";
 import Tooltip from '@mui/material/Tooltip';
 import { CircularProgress } from '@material-ui/core';
@@ -10,11 +12,12 @@ import { Store } from '../../context/Store';
 import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import User from '../../models/User';
-
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 function AllUsers({ users, loader }) {
     // console.log('SSR props: ', users)
     const { state } = useContext(Store)
     const { userInfo } = state;
+
     const { enqueueSnackbar } = useSnackbar()
     const router = useRouter()
     const [loading, setLoading] = useState(true);
@@ -24,13 +27,29 @@ function AllUsers({ users, loader }) {
             setLoading(false)
         }
     }, [loader])
+    const upToAdminHandler = async (event, disabled, id) => {
+        event.preventDefault()
+        if (!disabled) {
+            // Make PUT request to API, then updated isAdmin to 'True'
+            try {
+                const { data } = await axios.put(`/api/users/update/${id}`, {}, {
+                    headers: { authorization: `Bearer ${userInfo.token}` }
+                })
+                enqueueSnackbar(data, { variant: 'info' })
+            } catch (error) {
+                enqueueSnackbar(error.message, { variant: 'error' })
+                // console.log(error)
+            }
+            router.push('/admin/allUsers')
+        }
+    }
+
     const deleteHandler = async (id) => {
         try {
             const { data } = await axios.delete(`/api/users/delete/${id}`, {
                 headers: { authorization: `Bearer ${userInfo.token}` }
             })
             enqueueSnackbar(data, { variant: 'info' })
-
         } catch (error) {
             enqueueSnackbar(error.message, { variant: 'error' })
             // console.log(error)
@@ -63,9 +82,20 @@ function AllUsers({ users, loader }) {
             renderCell: (params) => {
                 return (
                     <>
-                        <DeleteOutline onClick={() => { return deleteHandler(params.row._id) }}
-                            style={{ color: 'red', cursor: 'pointer' }}
-                        />
+                        <Tooltip title="Delete">
+                            <IconButton aria-label="delete" onClick={() => { return deleteHandler(params.row._id) }}>
+                                <DeleteOutline
+                                    style={{ color: 'red', cursor: 'pointer' }}
+                                />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Up to Admin">
+                            <span>
+                                <IconButton disabled={params.row.isAdmin ? true : false} onClick={(event) => { return upToAdminHandler(event, params.row.isAdmin, params.row._id) }} aria-label="Up to Admin">
+                                    <AdminPanelSettingsIcon style={params.row.isAdmin ? { color: 'gray' } : { color: '#2a7ade', cursor: 'Pointer' }} />
+                                </IconButton>
+                            </span>
+                        </Tooltip>
                     </>
                 );
             },
