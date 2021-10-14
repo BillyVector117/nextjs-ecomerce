@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import LayoutAdmin from "../../components/LayoutAdmin";
 import { DeleteOutline } from "@mui/icons-material";
 import IconButton from '@mui/material/IconButton';
-
 import dbConnect from "../../utils/database";
 import Tooltip from '@mui/material/Tooltip';
 import { CircularProgress } from '@material-ui/core';
@@ -13,6 +12,8 @@ import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import User from '../../models/User';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import dynamic from 'next/dynamic';
+
 function AllUsers({ users, loader }) {
     // console.log('SSR props: ', users)
     const { state } = useContext(Store)
@@ -27,6 +28,7 @@ function AllUsers({ users, loader }) {
             setLoading(false)
         }
     }, [loader])
+    
     const upToAdminHandler = async (event, disabled, id) => {
         event.preventDefault()
         if (!disabled) {
@@ -82,6 +84,7 @@ function AllUsers({ users, loader }) {
             renderCell: (params) => {
                 return (
                     <>
+                    
                         <Tooltip title="Delete">
                             <IconButton aria-label="delete" onClick={() => { return deleteHandler(params.row._id) }}>
                                 <DeleteOutline
@@ -108,8 +111,8 @@ function AllUsers({ users, loader }) {
                 <br />
                 {!loading ?
                     (
-                        <div style={{ height: 400, width: '100%' }}>
-                            <DataGrid
+                        <div style={{ height: 400, width: '100%', color: 'blue' }}>
+                            <DataGrid 
                                 rows={users}
                                 columns={columns}
                                 pageSize={5}
@@ -125,7 +128,8 @@ function AllUsers({ users, loader }) {
     )
 }
 
-export default AllUsers
+export default dynamic(() => Promise.resolve(AllUsers), { ssr: false })
+
 // Get data from server side before rendering page
 export async function getServerSideProps() {
     try {

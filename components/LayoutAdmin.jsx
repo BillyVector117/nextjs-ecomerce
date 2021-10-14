@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Footer from './Footer'
 import Header from './Header'
 import Sidebar from './sidebar/Sidebar';
-
+import CustomButton from '../elements/CustomButton'
 function LayoutAdmin({ title, description, children, currentSection }) {
 
     return (
@@ -18,6 +18,8 @@ function LayoutAdmin({ title, description, children, currentSection }) {
 
                 <Sidebar currentSection={currentSection} />
                 <Container>
+
+                    <CustomButton />
                     {children}
                 </Container>
             </div>

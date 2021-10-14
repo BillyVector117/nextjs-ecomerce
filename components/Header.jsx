@@ -67,14 +67,14 @@ function Header({ title }) {
                                     aria-controls="basic-menu"
                                     aria-haspopup="true"
                                     aria-expanded={open ? 'true' : undefined}
-                                    onClick={loginHandleClick}>
+                                    onClick={(event) => { return loginHandleClick(event) }}>
                                     {userInfo.name}
                                 </Button>
                                 <Menu
                                     id="basic-menu"
                                     anchorEl={anchorEl}
                                     open={open}
-                                    onClose={loginHandleClose}
+                                    onClose={(event) => { return loginHandleClose(event, false) }}
                                     MenuListProps={{
                                         'aria-labelledby': 'basic-button',
                                     }}

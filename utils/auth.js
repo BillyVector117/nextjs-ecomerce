@@ -9,7 +9,7 @@ const signToken = (user) => {
 // Like ExpressJS Middleware (Check if is the rela user)
 const isAuth = async (req, res, next) => {
     // Authorization contains USER TOKEN which is sent in placeorder page by clicking the button
-     console.log('YOUR REQ.HEADERS: ', req.headers)
+    // console.log('YOUR REQ.HEADERS: ', req.headers)
     const { authorization } = req.headers
     if (authorization) {
         // User sent Token like: Bearer xxx, so extract only the token part

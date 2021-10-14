@@ -65,7 +65,7 @@ function Index({ users, orders }) {
     }, [])
     // console.log('data stats in statet: ', userStats)
     return (
-        <LayoutAdmin title="Admin" currentSection="Home">
+        <LayoutAdmin title="Admin" currentSection="Home" >
             <div className="home">
                 <br />
                 <FeaturedInfo />
@@ -81,7 +81,7 @@ function Index({ users, orders }) {
 export default Index
 
 // Get data from server side before rendering page
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
     try {
         await dbConnect();
         const responseUsers = await User.find({}).limit(5) // GET FIRST 5 users
@@ -104,7 +104,8 @@ export async function getServerSideProps() {
         return {
             props: {
                 users: null, orders: null, error: "Something went wrong while fetching data", error: JSON.stringify(error)
-            }
+            },
+            deferOnClientSideNavigation: true,
         }
     }
 }

@@ -147,7 +147,7 @@ so make a PUT (UPDATE) request to `/api/orders/${order._id}/pay` (remember order
  2. Create the Layout for Admin pages (Same App Bar but changing name, assing a Dashboard (Left-Side) and the same Footer).
  3. Add three containers, one for 'User Analytics per Month' (using recharts library), other one for 'New Join Members' and finally the last one for 'Latest New Orders'.
  4. Make a request to Database to get the latest New Users and Orders (inside getServerSideProps()) for filling 'New Join Members' and 'Latest New Orders' containers
- 42. MAKE GET STATS ENDPOINT
+ 42. MAKE GET ENDPOINT FOR 'STATS'
   1. Create a file at 'api/users/getStats'
   2. Use 'isAuth' middleware to check valid Token
   3. From User collection, use aggregate method to make a different query, it allows to extract in an array the Months (as '_id') and Total Users of that month (as 'Total') Response Ex: [{"id": 5, "total": 3}], this returns the Total New Users.
@@ -161,3 +161,6 @@ so make a PUT (UPDATE) request to `/api/orders/${order._id}/pay` (remember order
   2. Set Delete Button in last column for Orders and Users DatGrid which make a DELETE request to `/api/users/delete/${id}` for remove User / Order from database.
 45. UPDATE 'isAdmin' property for Users
   1. Add a 'Up to Admin Button' next to 'Delete Button', which fires a function that makes a PUT request to '/admin/users/update/${id}' to change 'isAdmin' prop to true in database
+  46. ADD 'GO BACK BUTTON'
+  1. Create customButton which returns previous page, use this component in LayoutAdmin component (Using useRouter() from Next/router to redirect previous page)
+  2. Fix a bug in App Bar, while not selecting an item from dropdown the page broken.
