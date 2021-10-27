@@ -2,7 +2,6 @@ import { Grid } from '@material-ui/core'
 import Layout from '../components/Layout'
 import ImgMediaCard from '../elements/ImgMediaCard'
 import Product from '../models/Product'
-import styles from '../styles/Home.module.css'
 // import { data } from '../utils/data'
 import dbConnect from '../utils/database'
 

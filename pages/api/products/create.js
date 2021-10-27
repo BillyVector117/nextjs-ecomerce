@@ -9,15 +9,15 @@ const handler = nc({ onError })
 handler.use(isAuth)
 // CREATE AN PRODUCT IN BACKEND
 handler.post(async (req, res) => {
-    console.log('Creating new product from: ', req.user)
-    console.log('New product body: ', req.body)
+    // console.log('Creating new product from: ', req.user)
+    // console.log('New product body: ', req.body)
     await dbConnect()
     // req.user is a object created in isAuth() middleware which set in req a new prop (user)
     const newProduct = new Product({
         ...req.body, rating: 0, image: 'https://static.wikia.nocookie.net/residentevil/images/0/08/Tricell.jpg/revision/latest/top-crop/width/360/height/450?cb=20110304143336&path-prefix=es'
     });
     const product = await newProduct.save();
-    console.log(product)
+    // console.log(product)
     res.status(201).send(product)
 })
 export default handler;

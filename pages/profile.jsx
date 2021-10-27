@@ -47,9 +47,9 @@ function Profile() {
             dispatch({ type: 'USER_LOGIN', payload: data })
             Cookies.set('userInfo', JSON.stringify(data))
             enqueueSnackbar('Successfully updated!', { variant: 'success' })
-            console.log('ALL OK', data)
+            // console.log('ALL OK', data)
         } catch (error) {
-            console.log('ERROR', error)
+            // console.log('ERROR', error)
             enqueueSnackbar(error, { variant: 'error' })
             alert(error.response.data ? error.response.data.message : error.message)
         }

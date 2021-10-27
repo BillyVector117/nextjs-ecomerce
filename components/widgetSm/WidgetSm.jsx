@@ -1,5 +1,6 @@
 import { Visibility } from "@mui/icons-material";
 import Typography from '@mui/material/Typography';
+import Image from 'next/image'
 export default function WidgetSm({ users }) {
   return (
     <div className="widgetSm">
@@ -10,7 +11,7 @@ export default function WidgetSm({ users }) {
             (
               users.map((item, index) => (
                 <li key={index} className="widgetSmListItem">
-                  <img
+                  <Image
                     src="https://via.placeholder.com/150"
                     alt={item.name}
                     className="widgetSmImg"

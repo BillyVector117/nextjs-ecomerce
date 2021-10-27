@@ -15,7 +15,7 @@ import dynamic from 'next/dynamic';
 import ButtonCreateProduct from '../../elements/ButtonCreateProduct';
 
 function AllProducts({ products, loader }) {
-    //console.log('SSR props: ', products)
+    // console.log('SSR props: ', products)
     const { state } = useContext(Store)
     const { userInfo } = state;
 

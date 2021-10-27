@@ -1,18 +1,14 @@
 
 import { useStyles } from "../utils/styles"
-import NextLink from 'next/link'
 import axios from "axios"
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { useRouter } from 'next/router'
 import { useSnackbar } from "notistack" // Pop-up messages
 import { Controller, useForm } from "react-hook-form"
-import { Grid, Input, InputAdornment, InputLabel } from "@mui/material"
-import Image from 'next/image'
-import dynamic from 'next/dynamic'
+import { Grid } from "@mui/material"
 import {
     Button,
-    CircularProgress,
-    Link,
+    // CircularProgress,
     List,
     ListItem,
     Typography,
@@ -23,7 +19,6 @@ function FormAddProduct({ handleClose }) {
     const classes = useStyles()
     const router = useRouter()
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    const { redirect } = router.query; // login?redirect=/shipping in case a page redirect here to login
     // Context-API Access
     const { state } = useContext(Store)
     const { userInfo } = state;
@@ -35,7 +30,7 @@ function FormAddProduct({ handleClose }) {
         closeSnackbar() // Close previous Pop-up message
         // console.log('sending data: ', { name, description, category, price: parseInt(price), countInStock: parseInt(countInStock), brand })
         try {
-            const { data } = await axios.post('/api/products/create', { name, description, category, price: parseInt(price), countInStock: parseInt(countInStock), brand }, {
+            await axios.post('/api/products/create', { name, description, category, price: parseInt(price), countInStock: parseInt(countInStock), brand }, {
                 headers: {
                     authorization: `Bearer ${userInfo.token}`
                 }

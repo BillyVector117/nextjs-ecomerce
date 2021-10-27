@@ -81,7 +81,7 @@ function Index({ users, orders }) {
 export default Index
 
 // Get data from server side before rendering page
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     try {
         await dbConnect();
         const responseUsers = await User.find({}).limit(5) // GET FIRST 5 users

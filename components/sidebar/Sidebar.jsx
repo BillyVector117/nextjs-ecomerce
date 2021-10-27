@@ -4,7 +4,6 @@ import {
   TrendingUp,
   PermIdentity,
   Storefront,
-  AttachMoney,
   BarChart,
   MailOutline,
   DynamicFeed,
@@ -65,7 +64,7 @@ function Sidebar({ currentSection }) {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Quick Menu</h3>
           <ul className="sidebarList">
-          <NextLink href="/admin/allProducts" passHref>
+            <NextLink href="/admin/allProducts" passHref>
               <a >
                 <li className={`sidebarListItem ${currentSection === "Products" && 'active'} `}>
                   <LocalOffer className="sidebarIcon" />
@@ -89,7 +88,7 @@ function Sidebar({ currentSection }) {
                 </li>
               </a>
             </NextLink>
-        
+
             <li className="sidebarListItem">
               <BarChart className="sidebarIcon" />
               Reports
