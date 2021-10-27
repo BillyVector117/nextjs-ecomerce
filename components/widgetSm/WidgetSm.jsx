@@ -14,6 +14,8 @@ export default function WidgetSm({ users }) {
                   <Image
                     src="https://via.placeholder.com/150"
                     alt={item.name}
+                    width="40px"
+                    height="40px"
                     className="widgetSmImg"
                   />
                   <div className="widgetSmUser">

@@ -55,14 +55,14 @@ function Index({ users, orders }) {
                     return setUserStats((prev) => [...prev, { name: MONTHS[object._id - 1], "Total Users": object.total }])
                 })
             } catch (error) {
-                console.error(error)
+                // console.error(error)
             }
         }
         getStats()
         return () => {
             setUserStats([])
         }
-    }, [])
+    }, [userInfo.token])
     // console.log('data stats in statet: ', userStats)
     return (
         <LayoutAdmin title="Admin" currentSection="Home" >
@@ -103,7 +103,7 @@ export async function getServerSideProps() {
     } catch (error) {
         return {
             props: {
-                users: null, orders: null, error: "Something went wrong while fetching data", error: JSON.stringify(error)
+                users: null, orders: null, error: "Something went wrong while fetching data", // error: JSON.stringify(error)
             },
             deferOnClientSideNavigation: true,
         }

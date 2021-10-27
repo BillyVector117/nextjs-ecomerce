@@ -1,6 +1,7 @@
 import { Visibility } from "@mui/icons-material";
 import NextLink from 'next/link'
 import Image from 'next/image'
+import { Typography } from "@mui/material";
 export default function WidgetLg({ orders }) {
   return (
     <div className="widgetSm">
@@ -14,6 +15,8 @@ export default function WidgetLg({ orders }) {
                   <Image
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/PayPal_Logo_Icon_2014.svg/1200px-PayPal_Logo_Icon_2014.svg.png"
                     alt={item.paymentMethod}
+                    width="40px"
+                    height="40px"
                     className="widgetSmImg"
                   />
                   <div className="widgetSmUser">
