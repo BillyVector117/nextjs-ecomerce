@@ -51,6 +51,10 @@ function reducer(state, action) {
             Cookies.set('userInfo', JSON.stringify(action.payload))
             return { ...state, userInfo: action.payload }
         }
+        case 'USER_LOGIN_GOOGLE': {
+            Cookies.set('userInfo', JSON.stringify(action.payload))
+            return { ...state, userInfo: action.payload }
+        }
         case 'USER_LOG_OUT': {
             return { ...state, userInfo: null, cart: { cartItems: [], shippingAddress: {}, paymentMethod: '' } }
         }

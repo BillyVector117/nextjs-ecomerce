@@ -4,6 +4,7 @@ import "../styles/widgetLg.css";
 import "../styles/widgetSm.css";
 import "../styles/index.css";
 import "../styles/sidebar.css";
+import "../styles/register.css";
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';

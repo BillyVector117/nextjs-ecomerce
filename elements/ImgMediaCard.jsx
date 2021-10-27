@@ -12,10 +12,12 @@ import NextLink from 'next/link'
 import { Store } from '../context/Store';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import dynamic from 'next/dynamic';
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    /* maxHeight: 400, */
     margin: 6
   },
   mycard: {
@@ -23,7 +25,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function ImgMediaCard({ product }) {
+ function ImgMediaCard({ product }) {
   const { dispatch, state } = useContext(Store)
   const router = useRouter()
   const classes = useStyles();
@@ -70,11 +72,14 @@ export default function ImgMediaCard({ product }) {
         <Button size="small" color="primary">
           Share
         </Button>
+        <FloatingCardActionButtons product={product} addToCartHandler={addToCartHandler} icon={'AddShoppingCartIcon'} />
         <Button color="primary">
           $ {<strong> {price}</strong>}
         </Button>
-        <FloatingCardActionButtons product={product} addToCartHandler={addToCartHandler} icon={'AddShoppingCartIcon'} />
       </CardActions>
     </Card>
   );
 }
+
+export default dynamic(() => Promise.resolve(ImgMediaCard), { ssr: false })
+

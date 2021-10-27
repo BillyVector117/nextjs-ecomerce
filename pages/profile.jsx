@@ -29,7 +29,7 @@ function Profile() {
             return router.push('/login')
         }
         setFormData({ ...formData, ['name']: userInfo.name, ['email']: userInfo.email })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const submitHandler = async (event) => {
@@ -99,7 +99,6 @@ function Profile() {
         handleChange(event)
         validateForm(formData)
     }
-
     return (
         <Layout title="Profile" >
             <br />
@@ -137,14 +136,21 @@ function Profile() {
                                             <TextField error={errors.email} helperText={errors.email && messageEmail} variant="outlined" name="email" autoComplete="on" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} style={{ width: '100%' }} id="email" inputProps={{ type: 'email' }} value={formData.email} >
                                             </TextField>
                                         </ListItem>
-                                        <ListItem>
-                                            <TextField error={errors.password} helperText={errors.password && messagePassword} variant="outlined" name="password" autoComplete="on" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} fullWidth id="password" label="password" inputProps={{ type: 'password' }}>
-                                            </TextField>
-                                        </ListItem>
-                                        <ListItem>
-                                            <TextField error={errors.confirmPassword} helperText={errors.confirmPassword && messageConfirmPassword} variant="outlined" name="confirmPassword" autoComplete="on" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} fullWidth id="confirmPassword" label="confirm password" inputProps={{ type: 'confirmPassword' }}>
-                                            </TextField>
-                                        </ListItem>
+                                        {
+                                            !userInfo?.createdByGoogle &&
+                                            (
+                                                <>
+                                                    <ListItem>
+                                                        <TextField error={errors.password} helperText={errors.password && messagePassword} variant="outlined" name="password" autoComplete="on" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} fullWidth id="password" label="password" inputProps={{ type: 'password' }}>
+                                                        </TextField>
+                                                    </ListItem>
+                                                    <ListItem>
+                                                        <TextField error={errors.confirmPassword} helperText={errors.confirmPassword && messageConfirmPassword} variant="outlined" name="confirmPassword" autoComplete="on" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} fullWidth id="confirmPassword" label="confirm password" inputProps={{ type: 'confirmPassword' }}>
+                                                        </TextField>
+                                                    </ListItem>
+                                                </>
+                                            )
+                                        }
                                         <ListItem>
                                             <Button variant="contained" type="submit" fullWidth color="primary">UPDATE</Button>
                                         </ListItem>

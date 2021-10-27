@@ -58,7 +58,7 @@ function SingleProduct(props) {
                 {/* 3 Grid sections (1. Image, 2. Product Info. 3. Cart Info.) */}
                 <Grid item md={6} xs={12}>
                     <Card>
-                        <Image src={product.image} alt={product.name} width={500} height={500} quality='100' layout="responsive">
+                        <Image src={product.image} alt={product.name} width={600} height={500} quality='100' layout="responsive">
 
                         </Image>
                     </Card>
@@ -84,7 +84,7 @@ function SingleProduct(props) {
                             </ListItem>
                             <ListItem>
                                 <Grid container>
-                                    <Grid item xs={6} > <Typography><strong>Status</strong></Typography></Grid>
+                                    <Grid item xs={6}> <Typography><strong>Status</strong></Typography></Grid>
                                     <Grid item xs={6}> <Typography>{product.countInStock > 0 ? 'In stock' : 'Unavailable'}</Typography></Grid>
                                 </Grid>
                             </ListItem>
@@ -95,7 +95,6 @@ function SingleProduct(props) {
                             </ListItem>
                         </List>
                     </Card>
-
                 </Grid>
             </Grid>
         </Layout>

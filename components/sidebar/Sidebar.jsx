@@ -11,6 +11,7 @@ import {
   ChatBubbleOutline,
   WorkOutline,
   Report,
+  LocalOffer,
 } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
@@ -20,6 +21,7 @@ import NextLink from 'next/link'
 import dynamic from "next/dynamic";
 
 function Sidebar({ currentSection }) {
+  // 'currentSection' comes from LayoutAdmin
   const router = useRouter()
   const classes = useStyles();
   // Context-API Access
@@ -63,6 +65,14 @@ function Sidebar({ currentSection }) {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Quick Menu</h3>
           <ul className="sidebarList">
+          <NextLink href="/admin/allProducts" passHref>
+              <a >
+                <li className={`sidebarListItem ${currentSection === "Products" && 'active'} `}>
+                  <LocalOffer className="sidebarIcon" />
+                  Products
+                </li>
+              </a>
+            </NextLink>
             <NextLink href="/admin/allUsers" passHref>
               <a >
                 <li className={`sidebarListItem ${currentSection === "Users" && 'active'} `}>
@@ -79,10 +89,7 @@ function Sidebar({ currentSection }) {
                 </li>
               </a>
             </NextLink>
-            <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
-            </li>
+        
             <li className="sidebarListItem">
               <BarChart className="sidebarIcon" />
               Reports

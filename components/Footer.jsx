@@ -10,7 +10,8 @@ function Footer() {
             >
                 Billy Rodríguez Morales{' '}
                 <span className={styles.logo}>
-                    <GitHubIcon />
+                    <GitHubIcon /> {' '} {'v.1.0.0'}
+
                 </span>
             </a>
         </footer>

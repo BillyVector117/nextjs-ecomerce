@@ -10,10 +10,10 @@ export default function Home(props) {
   // console.log(data)
   const { products } = props
   // console.log('SSR response: ', products)
+   
   return (
     <Layout >
-      <div className={styles.container}>
-        <main style={{ overflow: 'hidden' }} >
+      <br />
           <Grid container item xs={12} spacing={3}>
             {products.map((product, index) => (
               <Grid key={index} item xs={6} md={4}>
@@ -21,8 +21,7 @@ export default function Home(props) {
               </Grid>
             ))}
           </Grid>
-        </main>
-      </div>
+     <br />
     </Layout>
   )
 }

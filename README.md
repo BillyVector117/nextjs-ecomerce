@@ -161,6 +161,13 @@ so make a PUT (UPDATE) request to `/api/orders/${order._id}/pay` (remember order
   2. Set Delete Button in last column for Orders and Users DatGrid which make a DELETE request to `/api/users/delete/${id}` for remove User / Order from database.
 45. UPDATE 'isAdmin' property for Users
   1. Add a 'Up to Admin Button' next to 'Delete Button', which fires a function that makes a PUT request to '/admin/users/update/${id}' to change 'isAdmin' prop to true in database
-  46. ADD 'GO BACK BUTTON'
+46. ADD 'GO BACK BUTTON'
   1. Create customButton which returns previous page, use this component in LayoutAdmin component (Using useRouter() from Next/router to redirect previous page)
   2. Fix a bug in App Bar, while not selecting an item from dropdown the page broken.
+47. At this point we fix some bugs in Index page (cards were inside 3 containers tags), also remove SSR in 'imgMediaCard' component (to fix dark Mode bug)
+48. CREATE NEW PRODUCT
+ 1. In Side Bar section from 'Admin' set a new Next-Link (products)
+ 2. Inside /allProducts make a GET request to all products and mount them in grid Table
+ 3. Create a Bottom which dispatch a Modal, it allows you to create a new Product
+ 4. Inside the modal use 'react hook form' to controll all inputs and set validations
+ 5. When submit 'form' make a POST request to '/api/products/create' which creates a new Item

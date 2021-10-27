@@ -1,0 +1,7 @@
+.signUpButtons {
+    display: grid;
+    justify-content: center;
+}
+.title {
+    font-size: 50px;
+}

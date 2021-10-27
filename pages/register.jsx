@@ -8,6 +8,7 @@ import { Store } from "../context/Store"
 import { useRouter } from 'next/router'
 import Cookies from "js-cookie"
 import { useSnackbar } from "notistack";
+import GoogleButton from "../elements/GoogleButton"
 
 function Register() {
     const router = useRouter()
@@ -25,7 +26,7 @@ function Register() {
             // If is active user then Redirect Home page
             router.push('/')
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' })
@@ -98,8 +99,17 @@ function Register() {
         <Layout title="Register ">
             <form onSubmit={submitHandler} className={classes.form}>
                 <Typography component="h1" variant="h1">
-                    Register
+                    <div className="title">
+                        Register
+
+                    </div>
                 </Typography>
+                <div className="signUpButtons">
+                    <Typography component="h5" variant="h5">
+                        Use your Google Account
+                    </Typography>
+                    <GoogleButton />
+                </div>
                 <List>
                     <ListItem>
                         <TextField error={errors.name} helperText={errors.name && messageName} variant="outlined" name="name" autoComplete="on" onChange={(event) => { return handleChange(event) }} onBlur={(event) => { onBlurHandler(event) }} style={{ width: '100%' }} id="name" label="Name" inputProps={{ type: 'name' }} placeholder="Name">
@@ -125,7 +135,7 @@ function Register() {
                     </ListItem>
                 </List>
             </form>
-        </Layout>
+        </Layout >
     )
 }
 
